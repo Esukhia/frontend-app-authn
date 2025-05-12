@@ -457,3 +457,8 @@ select.form-control {
 .pgn__form-control-decorator-trailing {
   right: 0 !important;
 }
+
+// Custom override for the "with Sherab" text color
+.text-accent-a {
+  color: #fb6b23 !important; 
+}
