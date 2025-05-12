@@ -19,11 +19,11 @@ const MediumLayout = () => {
             <Image alt={getConfig().SITE_NAME} className="logo" src={getConfig().LOGO_WHITE_URL} />
           </Hyperlink>
           <div className="d-flex align-items-center justify-content-center mb-4 ">
-            <div className={classNames({ 'mt-1 medium-yellow-line': getConfig().SITE_NAME === 'edX' })} />
+            <div className="mt-1 medium-blue-line" />
             <div>
               <h1
                 className={classNames(
-                  'display-1 text-white mt-5 mb-5 mr-2 main-heading',
+                  'display-1 text-white mt-3.5 mb-3.5 auth-heading-text',
                   { 'ml-4.5': getConfig().SITE_NAME !== 'edX' },
                 )}
               >

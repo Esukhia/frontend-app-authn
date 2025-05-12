@@ -457,3 +457,29 @@ select.form-control {
 .pgn__form-control-decorator-trailing {
   right: 0 !important;
 }
+
+// Custom overrides for the text styling
+.text-accent-a {
+  color: #fb6b23 !important; 
+  font-size: 120% !important; 
+}
+
+// Increase the size of the heading text
+.auth-heading-text {
+  font-size: 5rem !important; 
+  line-height: 1.1 !important;
+  margin-left: 0.5rem !important; 
+}
+
+// For medium and small screens
+@media (max-width: 1200px) {
+  .auth-heading-text {
+    font-size: 4rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .auth-heading-text {
+    font-size: 3rem !important;
+  }
+}
