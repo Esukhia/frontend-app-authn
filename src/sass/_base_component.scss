@@ -24,13 +24,13 @@
 
 .logo-small {
   width: 44.67px;
-  margin-top: 1.25rem;
+  margin-top: 5.25rem;
   margin-left: 1.5rem;
 }
 
 .logo {
   width: 71px;
-  margin-top: 2rem;
+  margin-top: 6rem;
   margin-left: 1.5rem;
 }
 
@@ -181,23 +181,23 @@
   }
 }
 
-.small-yellow-line {
+.small-blue-line {
   width: 80px;
   height: 0;
-  border: 2px solid $accent-b;
+  border: 2px solid #03c7e8;
   transform: rotate(102.02deg);
 }
 
-.medium-yellow-line {
+.medium-blue-line {
   width: 120px;
   height: 0;
-  border: 3px solid $accent-b;
+  border: 3px solid #03c7e8;
   transform: rotate(102.02deg);
 }
 
-.large-yellow-line {
+.large-blue-line {
   width: 240px;
   height: 0;
-  border: 3px solid $accent-b;
+  border: 3px solid #03c7e8;
   transform: rotate(102.02deg);
 }
