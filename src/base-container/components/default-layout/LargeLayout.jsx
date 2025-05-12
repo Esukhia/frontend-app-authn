@@ -20,7 +20,7 @@ const LargeLayout = () => {
           <div className="large-blue-line mr-n4.5" />
           <h1
             className={classNames(
-              'display-2 text-white mw-xs',
+              'display-2 text-white mw-xs auth-heading-text',
               { 'ml-6': getConfig().SITE_NAME !== 'edX' },
             )}
           >

@@ -21,7 +21,7 @@ const SmallLayout = () => {
           <div className="small-blue-line mr-n2.5" />
           <h1
             className={classNames(
-              'text-white mt-3.5 mb-3.5',
+              'text-white mt-3.5 mb-3.5 auth-heading-text',
             )}
           >
             <span>
