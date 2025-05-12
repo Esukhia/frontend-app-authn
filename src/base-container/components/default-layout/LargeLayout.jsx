@@ -17,7 +17,7 @@ const LargeLayout = () => {
           <Image className="logo position-absolute" alt={getConfig().SITE_NAME} src={getConfig().LOGO_WHITE_URL} />
         </Hyperlink>
         <div className="min-vh-100 d-flex align-items-center">
-          <div className={classNames({ 'large-yellow-line mr-n4.5': getConfig().SITE_NAME === 'edX' })} />
+          <div className="large-blue-line mr-n4.5" />
           <h1
             className={classNames(
               'display-2 text-white mw-xs',

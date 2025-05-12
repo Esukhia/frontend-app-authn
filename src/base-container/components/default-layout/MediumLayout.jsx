@@ -19,7 +19,7 @@ const MediumLayout = () => {
             <Image alt={getConfig().SITE_NAME} className="logo" src={getConfig().LOGO_WHITE_URL} />
           </Hyperlink>
           <div className="d-flex align-items-center justify-content-center mb-4 ">
-            <div className={classNames({ 'mt-1 medium-yellow-line': getConfig().SITE_NAME === 'edX' })} />
+            <div className="mt-1 medium-blue-line" />
             <div>
               <h1
                 className={classNames(
