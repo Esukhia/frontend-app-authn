@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import {
-  EmbeddedRegistrationRoute, NotFoundPage, registerIcons, UnAuthOnlyRoute, Zendesk,
+  EmbeddedRegistrationRoute, NotFoundPage, registerIcons, UnAuthOnlyRoute, UserbackWidget, Zendesk,
 } from './common-components';
 import configureStore from './data/configureStore';
 import {
@@ -57,6 +57,7 @@ const MainApp = () => (
       <Route path={PAGE_NOT_FOUND} element={<NotFoundPage />} />
       <Route path="*" element={<Navigate replace to={PAGE_NOT_FOUND} />} />
     </Routes>
+    <UserbackWidget />
   </AppProvider>
 );
 
