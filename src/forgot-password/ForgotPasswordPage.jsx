@@ -106,7 +106,7 @@ const ForgotPasswordPage = (props) => {
           <Tab title={tabTitle} eventKey={LOGIN_PAGE} />
         </Tabs>
         <div id="main-content" className="main-content">
-          <Form id="forget-password-form" name="forget-password-form" className="mw-xs">
+          <Form id="forget-password-form" name="forget-password-form" className="mw-xs" onSubmit={handleSubmit}>
             <ForgotPasswordAlert email={bannerEmail} emailError={formErrors} status={status} />
             <h2 className="h4">
               {formatMessage(messages['forgot.password.page.heading'])}
@@ -136,7 +136,6 @@ const ForgotPasswordPage = (props) => {
                 default: formatMessage(messages['forgot.password.page.submit.button']),
                 pending: '',
               }}
-              onClick={handleSubmit}
               onMouseDown={(e) => e.preventDefault()}
             />
             {(getConfig().LOGIN_ISSUE_SUPPORT_LINK) && (

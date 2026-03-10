@@ -307,7 +307,7 @@ const RegistrationPage = (props) => {
               failureCount={errorCode.count}
               context={{ provider: currentProvider, errorMessage: thirdPartyAuthErrorMessage }}
             />
-            <Form id="registration-form" name="registration-form">
+            <Form id="registration-form" name="registration-form" onSubmit={handleSubmit}>
               <NameField
                 name="name"
                 value={formFields.name}
@@ -370,7 +370,6 @@ const RegistrationPage = (props) => {
                   default: buttonLabel,
                   pending: '',
                 }}
-                onClick={handleSubmit}
                 onMouseDown={(e) => e.preventDefault()}
               />
               {!registrationEmbedded && (

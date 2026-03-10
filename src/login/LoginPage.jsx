@@ -252,7 +252,7 @@ const LoginPage = ({
           messageType={activationMsgType}
         />
         {showResetPasswordSuccessBanner && <ResetPasswordSuccess />}
-        <Form id="sign-in-form" name="sign-in-form">
+        <Form id="sign-in-form" name="sign-in-form" onSubmit={handleSubmit}>
           <FormGroup
             name="emailOrUsername"
             value={formFields.emailOrUsername}
@@ -284,7 +284,6 @@ const LoginPage = ({
               default: formatMessage(messages['sign.in.button']),
               pending: '',
             }}
-            onClick={handleSubmit}
             onMouseDown={(event) => event.preventDefault()}
           />
           <Link
