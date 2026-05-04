@@ -1,5 +1,7 @@
 import { logError, logInfo } from '@edx/frontend-platform/logging';
-import { call, put, takeEvery } from 'redux-saga/effects';
+import {
+  call, put, takeLeading,
+} from 'redux-saga/effects';
 
 // Actions
 import {
@@ -31,5 +33,5 @@ export function* handleForgotPassword(action) {
 }
 
 export default function* saga() {
-  yield takeEvery(FORGOT_PASSWORD.BASE, handleForgotPassword);
+  yield takeLeading(FORGOT_PASSWORD.BASE, handleForgotPassword);
 }
