@@ -125,6 +125,11 @@ const Logistration = ({
           )
           : (
             <div>
+              {!institutionLogin && selectedPage === REGISTER_PAGE && !isValidTpaHint() && (
+                <h1 className="authn-register-heading">
+                  {formatMessage(messages['logistration.create.account'])}
+                </h1>
+              )}
               {institutionLogin
                 ? (
                   <Tabs defaultActiveKey="" id="controlled-tab" onSelect={handleInstitutionLogin}>
@@ -138,7 +143,17 @@ const Logistration = ({
                     onSelect={(tabKey) => handleOnSelect(tabKey, selectedPage)}
                   >
                     <Tab title={formatMessage(messages['logistration.register'])} eventKey={REGISTER_PAGE} />
-                    <Tab title={formatMessage(messages['logistration.sign.in'])} eventKey={LOGIN_PAGE} />
+                    <Tab
+                      title={selectedPage === REGISTER_PAGE ? (
+                        <span className="authn-register-prompt">
+                          <span>{formatMessage(messages['logistration.already.have.account'])}</span>{' '}
+                          <span className="authn-register-sign-in">
+                            {formatMessage(messages['logistration.sign.in'])}
+                          </span>
+                        </span>
+                      ) : formatMessage(messages['logistration.sign.in'])}
+                      eventKey={LOGIN_PAGE}
+                    />
                   </Tabs>
                 ))}
               {key && (

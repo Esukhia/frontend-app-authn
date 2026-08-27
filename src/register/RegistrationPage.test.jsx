@@ -435,7 +435,7 @@ describe('RegistrationPage', () => {
     it('should match default button state', () => {
       const { container } = render(routerWrapper(reduxWrapper(<RegistrationPage {...props} />)));
       const button = container.querySelector('button[type="submit"] span');
-      expect(button.textContent).toEqual('Create an account for free');
+      expect(button.textContent).toEqual('Sign Up');
     });
 
     it('should match pending button state', () => {

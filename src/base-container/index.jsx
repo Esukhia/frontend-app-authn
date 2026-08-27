@@ -14,10 +14,11 @@ import { AuthLargeLayout, AuthMediumLayout, AuthSmallLayout } from './components
 
 const BaseContainer = ({ children, showWelcomeBanner, fullName }) => {
   const enableImageLayout = getConfig().ENABLE_IMAGE_LAYOUT;
+  const layoutStyle = { '--authn-background-logo': `url("${getConfig().LOGO_URL}")` };
 
   if (enableImageLayout) {
     return (
-      <div className="layout">
+      <div className="layout" style={layoutStyle}>
         <MediaQuery maxWidth={breakpoints.extraSmall.maxWidth - 1}>
           {showWelcomeBanner ? <AuthSmallLayout fullName={fullName} /> : <ImageExtraSmallLayout />}
         </MediaQuery>
@@ -40,7 +41,7 @@ const BaseContainer = ({ children, showWelcomeBanner, fullName }) => {
   return (
     <>
       <div className="col-md-12 extra-large-screen-top-stripe" />
-      <div className="layout">
+      <div className="layout" style={layoutStyle}>
         <MediaQuery maxWidth={breakpoints.small.maxWidth - 1}>
           {showWelcomeBanner ? <AuthSmallLayout fullName={fullName} /> : <DefaultSmallLayout />}
         </MediaQuery>

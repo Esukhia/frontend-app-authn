@@ -75,6 +75,7 @@ const PasswordField = (props) => {
       onFocus={handleFocus}
       onBlur={handleBlur}
       name="passwordIcon"
+      className="password-icon--hide"
       src={VisibilityOff}
       iconAs={Icon}
       onClick={setHiddenTrue}
@@ -89,6 +90,7 @@ const PasswordField = (props) => {
       onFocus={handleFocus}
       onBlur={handleBlur}
       name="passwordIcon"
+      className="password-icon--show"
       src={Visibility}
       iconAs={Icon}
       onClick={setHiddenFalse}
@@ -125,6 +127,8 @@ const PasswordField = (props) => {
           type={isPasswordHidden ? 'password' : 'text'}
           name={props.name}
           value={props.value}
+          aria-label={props.placeholder ? props.floatingLabel : undefined}
+          placeholder={props.placeholder}
           autoComplete={props.autoComplete}
           aria-invalid={props.errorMessage !== ''}
           onFocus={handleFocus}
@@ -132,7 +136,7 @@ const PasswordField = (props) => {
           onChange={props.handleChange}
           controlClassName={props.borderClass}
           trailingElement={isPasswordHidden ? ShowButton : HideButton}
-          floatingLabel={props.floatingLabel}
+          floatingLabel={props.placeholder ? undefined : props.floatingLabel}
         />
       </OverlayTrigger>
       {props.errorMessage !== '' && (
@@ -152,6 +156,7 @@ PasswordField.defaultProps = {
   handleFocus: null,
   handleChange: () => {},
   handleErrorChange: null,
+  placeholder: null,
   showRequirements: true,
   showScreenReaderText: true,
   autoComplete: null,
@@ -166,6 +171,7 @@ PasswordField.propTypes = {
   handleChange: PropTypes.func,
   handleErrorChange: PropTypes.func,
   name: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   showRequirements: PropTypes.bool,
   value: PropTypes.string.isRequired,
   autoComplete: PropTypes.string,

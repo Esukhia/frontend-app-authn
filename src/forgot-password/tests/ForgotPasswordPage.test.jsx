@@ -121,7 +121,7 @@ describe('ForgotPasswordPage', () => {
   });
 
   it('should display empty email validation message', async () => {
-    const validationMessage = 'We were unable to contact you.Enter your email below.';
+    const validationMessage = 'We were unable to contact you.Please enter your email below.';
     const { container } = render(reduxWrapper(<ForgotPasswordPage {...props} />));
 
     const submitButton = screen.getByText('Submit');
@@ -230,9 +230,8 @@ describe('ForgotPasswordPage', () => {
       },
     });
 
-    const successMessage = 'Check your emailWe sent an email to  with instructions to reset your password. If you do not '
-                           + 'receive a password reset message after 1 minute, verify that you entered the correct email address,'
-                           + ' or check your spam folder. If you need further assistance, contact technical support.';
+    const successMessage = 'Check your emailWe sent an email to  with reset instructions. If it hasn\'t arrived in a minute, '
+                           + 'check your spam folder or contact support.';
 
     const { container } = render(reduxWrapper(<ForgotPasswordPage {...props} />));
     const successElement = findByTextContent(container, successMessage);

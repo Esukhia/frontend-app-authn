@@ -96,7 +96,7 @@ const ForgotPasswordPage = (props) => {
 
   return (
     <BaseContainer>
-      <Helmet>
+      <Helmet bodyAttributes={{ class: 'authn-login-page authn-forgot-password-page' }}>
         <title>{formatMessage(messages['forgot.password.page.title'],
           { siteName: getConfig().SITE_NAME })}
         </title>
@@ -116,6 +116,7 @@ const ForgotPasswordPage = (props) => {
             </p>
             <FormGroup
               floatingLabel={formatMessage(messages['forgot.password.page.email.field.label'])}
+              placeholder={formatMessage(messages['forgot.password.page.email.field.placeholder'])}
               name="email"
               value={email}
               autoComplete="on"
