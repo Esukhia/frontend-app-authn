@@ -24,7 +24,7 @@ import { getThirdPartyAuthContext } from '../common-components/data/actions';
 import { thirdPartyAuthContextSelector } from '../common-components/data/selectors';
 import EnterpriseSSO from '../common-components/EnterpriseSSO';
 import ThirdPartyAuth from '../common-components/ThirdPartyAuth';
-import { PENDING_STATE, RESET_PAGE } from '../data/constants';
+import { PENDING_STATE, REGISTER_PAGE, RESET_PAGE } from '../data/constants';
 import {
   getActivationStatus,
   getAllPossibleQueryParams,
@@ -230,7 +230,7 @@ const LoginPage = ({
   }
   return (
     <>
-      <Helmet>
+      <Helmet bodyAttributes={{ class: 'authn-login-page' }}>
         <title>{formatMessage(messages['login.page.title'], { siteName: getConfig().SITE_NAME })}</title>
       </Helmet>
       <RedirectLogistration
@@ -252,6 +252,10 @@ const LoginPage = ({
           messageType={activationMsgType}
         />
         {showResetPasswordSuccessBanner && <ResetPasswordSuccess />}
+        <div className="authn-card-heading">
+          <h1>{formatMessage(messages['login.welcome.back'])}</h1>
+          <p>{formatMessage(messages['login.continue.practice'])}</p>
+        </div>
         <Form id="sign-in-form" name="sign-in-form" onSubmit={handleSubmit}>
           <FormGroup
             name="emailOrUsername"
@@ -261,6 +265,7 @@ const LoginPage = ({
             handleFocus={handleOnFocus}
             errorMessage={errors.emailOrUsername}
             floatingLabel={formatMessage(messages['login.user.identity.label'])}
+            placeholder={formatMessage(messages['login.user.identity.placeholder'])}
           />
           <PasswordField
             name="password"
@@ -272,6 +277,7 @@ const LoginPage = ({
             handleFocus={handleOnFocus}
             errorMessage={errors.password}
             floatingLabel={formatMessage(messages['login.password.label'])}
+            placeholder={formatMessage(messages['login.password.label'])}
           />
           <StatefulButton
             name="sign-in"
@@ -304,6 +310,14 @@ const LoginPage = ({
             isLoginPage
           />
         </Form>
+        {getConfig().ALLOW_PUBLIC_ACCOUNT_CREATION !== false && getConfig().SHOW_REGISTRATION_LINKS !== false && (
+          <p className="authn-register-prompt">
+            {formatMessage(messages['login.register.prompt'])}{' '}
+            <Link to={updatePathWithQueryParams(REGISTER_PAGE)}>
+              {formatMessage(messages['login.sign.up'])}
+            </Link>
+          </p>
+        )}
       </div>
     </>
   );

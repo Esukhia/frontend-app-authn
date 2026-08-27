@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useIntl } from '@edx/frontend-platform/i18n';
@@ -43,6 +43,9 @@ const UsernameField = (props) => {
   let iconButton = null;
   const usernameSuggestions = useSelector(state => state.register.usernameSuggestions);
   const validationApiRateLimited = useSelector(state => state.register.validationApiRateLimited);
+  const suggestionDrag = useRef({
+    active: false, moved: false, scrollLeft: 0, startX: 0,
+  });
 
   /**
    * We need to remove the placeholder from the field, adding a space will do that.
@@ -90,6 +93,10 @@ const UsernameField = (props) => {
 
   const handleSuggestionClick = (event, suggestion = '') => {
     event.preventDefault();
+    if (suggestionDrag.current.moved) {
+      suggestionDrag.current.moved = false;
+      return;
+    }
     handleErrorChange('username', ''); // clear error
     handleChange({ target: { name: 'username', value: suggestion } }); // to set suggestion as value
     dispatch(clearUsernameSuggestions());
@@ -100,10 +107,40 @@ const UsernameField = (props) => {
     dispatch(clearUsernameSuggestions());
   };
 
+  const handleSuggestionPointerDown = (event) => {
+    if (event.button !== 0) { return; }
+    suggestionDrag.current = {
+      active: true,
+      moved: false,
+      scrollLeft: event.currentTarget.scrollLeft,
+      startX: event.clientX,
+    };
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+  };
+
+  const handleSuggestionPointerMove = (event) => {
+    if (!suggestionDrag.current.active) { return; }
+    const distance = event.clientX - suggestionDrag.current.startX;
+    suggestionDrag.current.moved ||= Math.abs(distance) > 3;
+    const suggestionList = event.currentTarget;
+    suggestionList.scrollLeft = suggestionDrag.current.scrollLeft - distance;
+  };
+
+  const handleSuggestionPointerEnd = (event) => {
+    suggestionDrag.current.active = false;
+    event.currentTarget.releasePointerCapture?.(event.pointerId);
+  };
+
   const suggestedUsernames = () => (
     <div className={className} role="listbox">
       <span className="text-gray username-suggestion--label">{formatMessage(messages['registration.username.suggestion.label'])}</span>
-      <div className="username-scroll-suggested--form-field">
+      <div
+        className="username-scroll-suggested--form-field"
+        onPointerDown={handleSuggestionPointerDown}
+        onPointerMove={handleSuggestionPointerMove}
+        onPointerUp={handleSuggestionPointerEnd}
+        onPointerCancel={handleSuggestionPointerEnd}
+      >
         {usernameSuggestions.map((username, index) => (
           <Button
             type="button"

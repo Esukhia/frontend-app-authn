@@ -129,6 +129,8 @@ describe('Logistration', () => {
     const { container } = render(reduxWrapper(<Logistration />));
 
     expect(container.querySelector('RegistrationPage')).toBeDefined();
+    expect(screen.getByRole('heading', { level: 1, name: 'Create an account' })).toBeDefined();
+    expect(screen.getByText('Already have one?')).toBeDefined();
   });
 
   it('should render login page', () => {

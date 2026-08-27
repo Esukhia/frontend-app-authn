@@ -6,11 +6,36 @@ const messages = defineMessages({
     defaultMessage: 'Login | {siteName}',
     description: 'login page title',
   },
+  'login.welcome.back': {
+    id: 'login.welcome.back',
+    defaultMessage: 'Welcome back',
+    description: 'Heading shown above the sign in form',
+  },
+  'login.continue.practice': {
+    id: 'login.continue.practice',
+    defaultMessage: 'Sign in to continue your practice',
+    description: 'Supporting text shown above the sign in form',
+  },
+  'login.register.prompt': {
+    id: 'login.register.prompt',
+    defaultMessage: 'Register for new account.',
+    description: 'Prompt shown below the sign in form',
+  },
+  'login.sign.up': {
+    id: 'login.sign.up',
+    defaultMessage: 'Sign Up',
+    description: 'Link to the registration page',
+  },
   // Login labels
   'login.user.identity.label': {
     id: 'login.user.identity.label',
     defaultMessage: 'Username or email',
     description: 'Label for user identity field to enter either username or email to login',
+  },
+  'login.user.identity.placeholder': {
+    id: 'login.user.identity.placeholder',
+    defaultMessage: 'Enter your email or username',
+    description: 'Placeholder for the user identity field',
   },
   'login.password.label': {
     id: 'login.password.label',

@@ -32,13 +32,15 @@ const FormGroup = (props) => {
         spellCheck={props.spellCheck}
         name={props.name}
         value={props.value}
+        aria-label={props.placeholder ? props.floatingLabel : undefined}
+        placeholder={props.placeholder}
         onFocus={handleFocus}
         onBlur={handleOnBlur}
         onClick={handleClick}
         onChange={props.handleChange}
         controlClassName={props.borderClass}
         trailingElement={props.trailingElement}
-        floatingLabel={props.floatingLabel}
+        floatingLabel={props.placeholder ? undefined : props.floatingLabel}
       >
         {props.options ? props.options() : null}
       </Form.Control>
@@ -75,6 +77,7 @@ FormGroup.defaultProps = {
   handleFocus: null,
   helpText: [],
   options: null,
+  placeholder: null,
   readOnly: false,
   spellCheck: null,
   trailingElement: null,
@@ -96,6 +99,7 @@ FormGroup.propTypes = {
   helpText: PropTypes.arrayOf(PropTypes.string),
   name: PropTypes.string.isRequired,
   options: PropTypes.func,
+  placeholder: PropTypes.string,
   readOnly: PropTypes.bool,
   spellCheck: PropTypes.string,
   trailingElement: PropTypes.element,

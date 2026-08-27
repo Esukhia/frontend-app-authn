@@ -28,11 +28,7 @@ const ForgotPasswordAlert = (props) => {
       heading = formatMessage(messages['confirmation.message.title']);
       message = (
         <FormattedMessage
-          id="forgot.password.confirmation.message"
-          defaultMessage="We sent an email to {email} with instructions to reset your password.
-          If you do not receive a password reset message after 1 minute, verify that you entered
-          the correct email address, or check your spam folder. If you need further assistance, {supportLink}."
-          description="Forgot password confirmation message"
+          {...messages['forgot.password.confirmation.message']}
           values={{
             email: <span className="data-hj-suppress">{email}</span>,
             supportLink: (

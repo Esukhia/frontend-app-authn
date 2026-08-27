@@ -260,6 +260,30 @@ describe('UsernameField', () => {
       );
     });
 
+    it('should scroll suggestions by pointer dragging without selecting one', () => {
+      store = mockStore({
+        ...initialState,
+        register: {
+          ...initialState.register,
+          usernameSuggestions: ['test_1', 'test_12', 'test_123'],
+        },
+      });
+      props = { ...props, value: ' ' };
+
+      const { container } = render(routerWrapper(reduxWrapper(<UsernameField {...props} />)));
+      const suggestions = container.querySelector('.username-scroll-suggested--form-field');
+      suggestions.setPointerCapture = jest.fn();
+      suggestions.releasePointerCapture = jest.fn();
+
+      fireEvent(suggestions, new MouseEvent('pointerdown', { bubbles: true, button: 0, clientX: 100 }));
+      fireEvent(suggestions, new MouseEvent('pointermove', { bubbles: true, clientX: 60 }));
+      fireEvent(suggestions, new MouseEvent('pointerup', { bubbles: true }));
+      fireEvent.click(container.querySelector('.username-suggestions--chip'));
+
+      expect(suggestions.scrollLeft).toBe(40);
+      expect(props.handleChange).not.toHaveBeenCalled();
+    });
+
     it('should clear username suggestions when close icon is clicked', () => {
       store = mockStore({
         ...initialState,

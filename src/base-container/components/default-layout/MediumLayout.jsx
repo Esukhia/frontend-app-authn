@@ -3,7 +3,6 @@ import React from 'react';
 import { getConfig } from '@edx/frontend-platform';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import { Hyperlink, Image } from '@openedx/paragon';
-import classNames from 'classnames';
 
 import messages from './messages';
 
@@ -17,23 +16,17 @@ const MediumLayout = () => {
         <div className="col-md-10 bg-primary-400">
           <Hyperlink destination={getConfig().MARKETING_SITE_BASE_URL}>
             <Image alt={getConfig().SITE_NAME} className="logo" src={getConfig().LOGO_WHITE_URL} />
+            <span className="auth-brand-name d-none" aria-hidden="true">{getConfig().SITE_NAME}</span>
           </Hyperlink>
           <div className="d-flex align-items-center justify-content-center mb-4 ">
             <div className="mt-1 medium-blue-line" />
-            <div>
-              <h1
-                className={classNames(
-                  'display-1 text-white mt-3.5 mb-3.5 auth-heading-text',
-                  { 'ml-4.5': getConfig().SITE_NAME !== 'edX' },
-                )}
-              >
-                <span>
-                  {formatMessage(messages['start.learning'])}{' '}
-                  <span className="text-accent-a d-inline-block">
-                    {formatMessage(messages['with.site.name'], { siteName: getConfig().SITE_NAME })}
-                  </span>
-                </span>
+            <div className="auth-brand-copy">
+              <h1 className="display-1 text-white auth-heading-text">
+                <span className="auth-heading-highlight">{formatMessage(messages['authn.brand.learn'])}</span>{' '}
+                <span>{formatMessage(messages['authn.brand.practice'])}</span>{' '}
+                <span>{formatMessage(messages['authn.brand.connect'])}</span>
               </h1>
+              <p className="auth-tagline d-none">{formatMessage(messages['authn.brand.tagline'])}</p>
             </div>
           </div>
         </div>

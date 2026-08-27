@@ -13,7 +13,7 @@ const messages = defineMessages({
   },
   'forgot.password.page.instructions': {
     id: 'forgot.password.page.instructions',
-    defaultMessage: 'Please enter your email address below and we will send you an email with instructions on how to reset your password.',
+    defaultMessage: 'Enter your email address and we will send you instructions for setting a new password.',
     description: 'Instructions message for forgot password page.',
   },
   'forgot.password.page.invalid.email.message': {
@@ -25,6 +25,11 @@ const messages = defineMessages({
     id: 'forgot.password.page.email.field.label',
     defaultMessage: 'Email',
     description: 'Email field label for the forgot password page.',
+  },
+  'forgot.password.page.email.field.placeholder': {
+    id: 'forgot.password.page.email.field.placeholder',
+    defaultMessage: 'Enter your email',
+    description: 'Email field placeholder for the forgot password page.',
   },
   'forgot.password.page.submit.button': {
     id: 'forgot.password.page.submit.button',
@@ -48,7 +53,7 @@ const messages = defineMessages({
   },
   'forgot.password.empty.email.field.error': {
     id: 'forgot.password.empty.email.field.error',
-    defaultMessage: 'Enter your email',
+    defaultMessage: 'Please enter your email',
     description: 'Error message that appears when user tries to submit empty email field',
   },
   'forgot.password.email.help.text': {
@@ -62,9 +67,14 @@ const messages = defineMessages({
     defaultMessage: 'Check your email',
     description: 'Forgot password confirmation message title',
   },
+  'forgot.password.confirmation.message': {
+    id: 'forgot.password.confirmation.message',
+    defaultMessage: 'We sent an email to {email} with reset instructions. If it hasn\'t arrived in a minute, check your spam folder or {supportLink}.',
+    description: 'Forgot password confirmation message',
+  },
   'confirmation.support.link': {
     id: 'confirmation.support.link',
-    defaultMessage: 'contact technical support',
+    defaultMessage: 'contact support',
     description: 'Technical support link text',
   },
   'need.help.sign.in.text': {
@@ -74,7 +84,7 @@ const messages = defineMessages({
   },
   'additional.help.text': {
     id: 'additional.help.text',
-    defaultMessage: 'For additional help, contact {platformName} support at ',
+    defaultMessage: 'Need a hand? Write to ',
     description: 'additional help text on forgot password page',
   },
   'sign.in.text': {

@@ -18,6 +18,16 @@ const messages = defineMessages({
     defaultMessage: 'Register',
     description: 'Text that appears on the tab to switch between login and register',
   },
+  'logistration.create.account': {
+    id: 'logistration.create.account',
+    defaultMessage: 'Create an account',
+    description: 'Heading on the registration page',
+  },
+  'logistration.already.have.account': {
+    id: 'logistration.already.have.account',
+    defaultMessage: 'Already have one?',
+    description: 'Prompt before the sign in link on the registration page',
+  },
   // enterprise sso strings
   'enterprisetpa.title.heading': {
     id: 'enterprisetpa.title.heading',

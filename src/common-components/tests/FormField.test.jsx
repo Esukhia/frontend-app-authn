@@ -32,6 +32,13 @@ describe('FormGroup', () => {
     expect(helpText).toBeTruthy();
     expect(helpText.textContent).toEqual('Email field help text');
   });
+
+  it('should use placeholder mode without rendering a floating label', () => {
+    const { container, getByLabelText } = render(<FormGroup {...props} placeholder="Enter your email" />);
+
+    expect(getByLabelText('Email').placeholder).toBe('Enter your email');
+    expect(container.querySelector('.pgn__form-control-floating-label')).toBeNull();
+  });
 });
 
 describe('PasswordField', () => {
@@ -68,12 +75,21 @@ describe('PasswordField', () => {
     const passwordInput = getByLabelText('Password');
 
     const showPasswordButton = getByLabelText('Show password');
+    expect(showPasswordButton.className).toContain('password-icon--show');
     fireEvent.click(showPasswordButton);
     expect(passwordInput.type).toBe('text');
 
     const hidePasswordButton = getByLabelText('Hide password');
+    expect(hidePasswordButton.className).toContain('password-icon--hide');
     fireEvent.click(hidePasswordButton);
     expect(passwordInput.type).toBe('password');
+  });
+
+  it('should use placeholder mode without rendering a floating label', () => {
+    const { container, getByLabelText } = render(reduxWrapper(<PasswordField {...props} placeholder="Password" />));
+
+    expect(getByLabelText('Password').placeholder).toBe('Password');
+    expect(container.querySelector('.pgn__form-control-floating-label')).toBeNull();
   });
 
   it('should show password requirement tooltip on focus', async () => {
