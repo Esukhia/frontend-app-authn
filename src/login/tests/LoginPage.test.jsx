@@ -659,6 +659,28 @@ describe('LoginPage', () => {
     expect(container.querySelector('.react-loading-skeleton')).toBeTruthy();
   });
 
+  it('should keep cached third party providers visible while refreshing', () => {
+    store = mockStore({
+      ...initialState,
+      commonComponents: {
+        ...initialState.commonComponents,
+        thirdPartyAuthContext: {
+          ...initialState.commonComponents.thirdPartyAuthContext,
+          providers: [ssoProvider],
+        },
+        thirdPartyAuthApiStatus: PENDING_STATE,
+      },
+    });
+
+    delete window.location;
+    window.location = { href: getConfig().BASE_URL.concat(LOGIN_PAGE), search: '' };
+
+    const { container } = render(reduxWrapper(<LoginPage {...props} />));
+
+    expect(container.querySelector(`#${ssoProvider.id}`)).toBeTruthy();
+    expect(container.querySelector('.react-loading-skeleton')).toBeNull();
+  });
+
   it('should render tpa button for tpa_hint id matching one of the secondary providers', () => {
     secondaryProviders.skipHintedLogin = true;
     store = mockStore({
