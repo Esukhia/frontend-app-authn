@@ -12,7 +12,7 @@ import {
 } from '@openedx/paragon';
 import { ChevronLeft } from '@openedx/paragon/icons';
 import PropTypes from 'prop-types';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import BaseContainer from '../base-container';
 import { clearThirdPartyAuthContextErrorMessage } from '../common-components/data/actions';
@@ -41,7 +41,6 @@ const Logistration = ({
   } = tpaProviders;
   const { formatMessage } = useIntl();
   const [institutionLogin, setInstitutionLogin] = useState(false);
-  const [key, setKey] = useState('');
   const navigate = useNavigate();
   const disablePublicAccountCreation = getConfig().ALLOW_PUBLIC_ACCOUNT_CREATION === false;
   const hideRegistrationLink = getConfig().SHOW_REGISTRATION_LINKS === false;
@@ -82,7 +81,7 @@ const Logistration = ({
     } else if (tabKey === REGISTER_PAGE) {
       dispatch(backupLoginForm());
     }
-    setKey(tabKey);
+    navigate(updatePathWithQueryParams(tabKey), { replace: true });
   };
 
   const tabTitle = (
@@ -156,9 +155,6 @@ const Logistration = ({
                     />
                   </Tabs>
                 ))}
-              {key && (
-                <Navigate to={updatePathWithQueryParams(key)} replace />
-              )}
               <div id="main-content" className="main-content">
                 {!institutionLogin && !isValidTpaHint() && hideRegistrationLink && (
                   <h3 className="mb-4.5">

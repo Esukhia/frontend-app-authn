@@ -44,7 +44,7 @@ const UsernameField = (props) => {
   const usernameSuggestions = useSelector(state => state.register.usernameSuggestions);
   const validationApiRateLimited = useSelector(state => state.register.validationApiRateLimited);
   const suggestionDrag = useRef({
-    active: false, moved: false, scrollLeft: 0, startX: 0,
+    moved: false, scrollLeft: 0, startX: 0,
   });
 
   /**
@@ -110,25 +110,22 @@ const UsernameField = (props) => {
   const handleSuggestionPointerDown = (event) => {
     if (event.button !== 0) { return; }
     suggestionDrag.current = {
-      active: true,
       moved: false,
       scrollLeft: event.currentTarget.scrollLeft,
       startX: event.clientX,
     };
-    event.currentTarget.setPointerCapture?.(event.pointerId);
   };
 
   const handleSuggestionPointerMove = (event) => {
-    if (!suggestionDrag.current.active) { return; }
+    if (event.buttons !== 1) { return; }
     const distance = event.clientX - suggestionDrag.current.startX;
-    suggestionDrag.current.moved ||= Math.abs(distance) > 3;
+    if (!suggestionDrag.current.moved && Math.abs(distance) <= 3) { return; }
+    if (!suggestionDrag.current.moved) {
+      suggestionDrag.current.moved = true;
+      event.currentTarget.setPointerCapture?.(event.pointerId);
+    }
     const suggestionList = event.currentTarget;
     suggestionList.scrollLeft = suggestionDrag.current.scrollLeft - distance;
-  };
-
-  const handleSuggestionPointerEnd = (event) => {
-    suggestionDrag.current.active = false;
-    event.currentTarget.releasePointerCapture?.(event.pointerId);
   };
 
   const suggestedUsernames = () => (
@@ -138,8 +135,6 @@ const UsernameField = (props) => {
         className="username-scroll-suggested--form-field"
         onPointerDown={handleSuggestionPointerDown}
         onPointerMove={handleSuggestionPointerMove}
-        onPointerUp={handleSuggestionPointerEnd}
-        onPointerCancel={handleSuggestionPointerEnd}
       >
         {usernameSuggestions.map((username, index) => (
           <Button

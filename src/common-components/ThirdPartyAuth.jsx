@@ -8,7 +8,6 @@ import {
 import { Institution } from '@openedx/paragon/icons';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import Skeleton from 'react-loading-skeleton';
 
 import messages from './messages';
 import {
@@ -37,8 +36,6 @@ const ThirdPartyAuth = (props) => {
   const isSocialAuthActive = !!providers.length && !currentProvider;
   const isEnterpriseLoginDisabled = getConfig().DISABLE_ENTERPRISE_LOGIN;
   const enterpriseLoginURL = getConfig().LMS_BASE_URL + ENTERPRISE_LOGIN_URL;
-  const isThirdPartyAuthActive = isSocialAuthActive || (isEnterpriseLoginDisabled && isInstitutionAuthActive);
-
   return (
     <>
       {((isEnterpriseLoginDisabled && isInstitutionAuthActive) || isSocialAuthActive) && (
@@ -62,27 +59,19 @@ const ThirdPartyAuth = (props) => {
         </Hyperlink>
       )}
 
-      {thirdPartyAuthApiStatus === PENDING_STATE && isThirdPartyAuthActive ? (
-        <div className="mt-4">
-          <Skeleton className="tpa-skeleton" height={36} count={2} />
+      {(isEnterpriseLoginDisabled && isInstitutionAuthActive) && (
+        <RenderInstitutionButton
+          onSubmitHandler={handleInstitutionLogin}
+          buttonTitle={formatMessage(messages['institution.login.button'])}
+        />
+      )}
+      {isSocialAuthActive && (
+        <div className="row m-0">
+          <SocialAuthProviders
+            socialAuthProviders={providers}
+            referrer={isLoginPage ? LOGIN_PAGE : REGISTER_PAGE}
+          />
         </div>
-      ) : (
-        <>
-          {(isEnterpriseLoginDisabled && isInstitutionAuthActive) && (
-            <RenderInstitutionButton
-              onSubmitHandler={handleInstitutionLogin}
-              buttonTitle={formatMessage(messages['institution.login.button'])}
-            />
-          )}
-          {isSocialAuthActive && (
-            <div className="row m-0">
-              <SocialAuthProviders
-                socialAuthProviders={providers}
-                referrer={isLoginPage ? LOGIN_PAGE : REGISTER_PAGE}
-              />
-            </div>
-          )}
-        </>
       )}
     </>
   );

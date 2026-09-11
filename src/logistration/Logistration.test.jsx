@@ -15,11 +15,17 @@ import {
 import { backupLoginForm } from '../login/data/actions';
 import { backupRegistrationForm } from '../register/data/actions';
 
+const mockedNavigator = jest.fn();
+
 jest.mock('@edx/frontend-platform/analytics', () => ({
   sendPageEvent: jest.fn(),
   sendTrackEvent: jest.fn(),
 }));
 jest.mock('@edx/frontend-platform/auth');
+jest.mock('react-router-dom', () => ({
+  ...(jest.requireActual('react-router-dom')),
+  useNavigate: () => mockedNavigator,
+}));
 
 const mockStore = configureStore();
 
@@ -296,6 +302,21 @@ describe('Logistration', () => {
     const { container } = render(reduxWrapper(<Logistration {...props} />));
     fireEvent.click(container.querySelector('a[data-rb-event-key="/register"]'));
     expect(store.dispatch).toHaveBeenCalledWith(backupLoginForm());
+  });
+
+  it('should navigate on every login and register switch', () => {
+    mockedNavigator.mockClear();
+    const { container, rerender } = render(reduxWrapper(<Logistration selectedPage={LOGIN_PAGE} />));
+
+    fireEvent.click(container.querySelector('a[data-rb-event-key="/register"]'));
+    rerender(reduxWrapper(<Logistration selectedPage={REGISTER_PAGE} />));
+    fireEvent.click(container.querySelector('a[data-rb-event-key="/login"]'));
+    rerender(reduxWrapper(<Logistration selectedPage={LOGIN_PAGE} />));
+    fireEvent.click(container.querySelector('a[data-rb-event-key="/register"]'));
+
+    expect(mockedNavigator).toHaveBeenNthCalledWith(1, REGISTER_PAGE, { replace: true });
+    expect(mockedNavigator).toHaveBeenNthCalledWith(2, LOGIN_PAGE, { replace: true });
+    expect(mockedNavigator).toHaveBeenNthCalledWith(3, REGISTER_PAGE, { replace: true });
   });
 
   it('should clear tpa context errorMessage tab click', () => {

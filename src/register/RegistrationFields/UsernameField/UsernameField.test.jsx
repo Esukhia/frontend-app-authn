@@ -253,7 +253,12 @@ describe('UsernameField', () => {
 
       const { container } = render(routerWrapper(reduxWrapper(<UsernameField {...props} />)));
       const usernameSuggestion = container.querySelector('.username-suggestions--chip');
+      const suggestions = container.querySelector('.username-scroll-suggested--form-field');
+      suggestions.setPointerCapture = jest.fn();
+      fireEvent(usernameSuggestion, new MouseEvent('pointerdown', { bubbles: true, button: 0, clientX: 100 }));
+      fireEvent(usernameSuggestion, new MouseEvent('pointerup', { bubbles: true, clientX: 100 }));
       fireEvent.click(usernameSuggestion);
+      expect(suggestions.setPointerCapture).not.toHaveBeenCalled();
       expect(props.handleChange).toHaveBeenCalledTimes(1);
       expect(props.handleChange).toHaveBeenCalledWith(
         { target: { name: 'username', value: 'test_1' } },
@@ -273,14 +278,14 @@ describe('UsernameField', () => {
       const { container } = render(routerWrapper(reduxWrapper(<UsernameField {...props} />)));
       const suggestions = container.querySelector('.username-scroll-suggested--form-field');
       suggestions.setPointerCapture = jest.fn();
-      suggestions.releasePointerCapture = jest.fn();
 
       fireEvent(suggestions, new MouseEvent('pointerdown', { bubbles: true, button: 0, clientX: 100 }));
-      fireEvent(suggestions, new MouseEvent('pointermove', { bubbles: true, clientX: 60 }));
+      fireEvent(suggestions, new MouseEvent('pointermove', { bubbles: true, buttons: 1, clientX: 60 }));
       fireEvent(suggestions, new MouseEvent('pointerup', { bubbles: true }));
       fireEvent.click(container.querySelector('.username-suggestions--chip'));
 
       expect(suggestions.scrollLeft).toBe(40);
+      expect(suggestions.setPointerCapture).toHaveBeenCalled();
       expect(props.handleChange).not.toHaveBeenCalled();
     });
 
